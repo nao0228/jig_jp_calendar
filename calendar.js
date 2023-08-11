@@ -101,6 +101,8 @@ function get_month_calendar(year, month) {
 function moveCalendar(e) {
     document.querySelector('#calendar').innerHTML = ''
 
+    
+
     if (e.target.id === 'prev') {
         month--
 
@@ -119,7 +121,8 @@ function moveCalendar(e) {
         }
     }
 
-    generate_month_calendar(year, month)
+    var data = generate_month_calendar(year, month);//ctable
+    document.getElementById('calendar').appendChild(data);//calendarのIDの場所を取得して、dataをそこで表示するやつ
 }
 
 document.querySelector('#prev').addEventListener('click', moveCalendar)//#prev は、id=prevと同じ意味
