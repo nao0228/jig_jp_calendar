@@ -1,9 +1,9 @@
 // 年月の指定
-var year = 2018;
-var month = 5;
+var year = 2023;
+var month = 9;
  
 window.onload = function() {
-    var data = generate_month_calendar(year, month);
+    var data = generate_month_calendar(year, month);//ctable
     document.getElementById('calendar').appendChild(data);//calendarのIDの場所を取得して、dataをそこで表示するやつ
 }
  
@@ -37,8 +37,8 @@ function generate_month_calendar(year, month) {
     }
  
     // カレンダーの要素を生成
-    var cTable = document.createElement('table');
-    cTable.className = 'calendar-table';
+    var cTable = document.createElement('table');//html要素を作る
+    cTable.className = 'calendar-table';//classnameをカレンダーテーブルにする。
  
     var insertData = '';
     // 曜日部分の生成
@@ -67,7 +67,7 @@ function generate_month_calendar(year, month) {
     }
     insertData += '</tbody>';
  
-    cTable.innerHTML = insertData;
+    cTable.innerHTML = insertData;//htmlをとりあえずstringでかいて、それをhtmlに変換している。
     return cTable;
 }
  
@@ -97,3 +97,30 @@ function get_month_calendar(year, month) {
     }
     return calendarData;
 }
+
+function moveCalendar(e) {
+    document.querySelector('#calendar').innerHTML = ''
+
+    if (e.target.id === 'prev') {
+        month--
+
+        if (month < 1) {
+            year--
+            month = 12
+        }
+    }
+
+    if (e.target.id === 'next') {
+        month++
+
+        if (month > 12) {
+            year++
+            month = 1
+        }
+    }
+
+    generate_month_calendar(year, month)
+}
+
+document.querySelector('#prev').addEventListener('click', moveCalendar)//#prev は、id=prevと同じ意味
+document.querySelector('#next').addEventListener('click', moveCalendar)
