@@ -1,8 +1,17 @@
-.centering_parent {
+.blue {
+    color: blue;
+  }
+  
+  .red {
+    color: red;
+  }
+  
+  #calendar {
     display: flex;
-}
-
-#calendar {
-    display: flex;
+    justify-content: center;
     flex-wrap: wrap;
-}
+  }
+  
+  .calendar-table {
+    width: 2vw;
+  }
