@@ -12,6 +12,10 @@
     flex-wrap: wrap;
   }
   
+  #meta {
+    text-align: center;
+  }
+  
   .calendar-table {
     width: 2vw;
   }

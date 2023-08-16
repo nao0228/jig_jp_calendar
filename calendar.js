@@ -1,9 +1,11 @@
 // 年月の指定
 var year = 2023;
-var month = 8;
+var month = 9;
 
 window.onload = async function () {
   var data = await generate_month_calendar(year, month); //ctable
+  var meta = generate_meta(year, month); //meta
+  document.getElementById("meta").appendChild(meta); //metaのIDの場所を取得して、metaをそこで表示するやつ
   document.getElementById("calendar").appendChild(data); //calendarのIDの場所を取得して、dataをそこで表示するやつ
 };
 
@@ -31,6 +33,7 @@ async function generate_month_calendar(year, month) {
 
   var d = new Date(); // 今日の日付情報
 
+  var y = d.getFullYear()
   var m = d.getMonth() + 1; // 今月
   var date = d.getDate(); // 今日
 
@@ -82,7 +85,7 @@ async function generate_month_calendar(year, month) {
     }
     insertData += "<td>";
     insertData +=
-      m === month && date === calendarData[i].day
+      y === year && m === month && date === calendarData[i].day
         ? `<b>${calendarData[i].day}</b>`
         : holiDayData.includes(calendarData[i].day)
         ? `<span class="red">${calendarData[i].day}</span>`
@@ -96,6 +99,18 @@ async function generate_month_calendar(year, month) {
 
   cTable.innerHTML = insertData; //htmlをとりあえずstringでかいて、それをhtmlに変換している。
   return cTable;
+}
+
+/**
+ *
+ * @param {number} year
+ * @param {number} month
+ */
+function generate_meta(year, month) {
+  var yearAndMonth = document.createElement("h2"); //html要素を作る
+  yearAndMonth.innerText = `${year}年${month}月`; //テキストを作る
+
+  return yearAndMonth;
 }
 
 /**
@@ -143,6 +158,7 @@ async function get_year_holidays(year) {
 }
 
 async function moveCalendar(e) {
+  document.querySelector("#meta").innerHTML = "";
   document.querySelector("#calendar").innerHTML = "";
 
   if (e.target.id === "prev") {
@@ -164,6 +180,8 @@ async function moveCalendar(e) {
   }
 
   var data = await generate_month_calendar(year, month); //ctable
+  var meta = generate_meta(year, month); //meta
+  document.getElementById("meta").appendChild(meta); //metaのIDの場所を取得して、metaをそこで表示するやつ
   document.getElementById("calendar").appendChild(data); //calendarのIDの場所を取得して、dataをそこで表示するやつ
 }
 
